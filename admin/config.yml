@@ -1,68 +1,17 @@
 backend:
-  name: github
-  repo: AICBOUCHAMA/AICBOUCHAMA.github.io # حسابك ومستودعك المحدث بالكامل
+  name: git-gateway
   branch: main
 
-media_folder: "images/uploads" # المجلد العام الموحد لرفع كل صور الأقسام والمنتجات
+media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
-  # 1. قسم إدارة هوية الموقع الأساسية وشاشة التحميل والترجمة
-  - name: "site_settings"
-    label: "إعدادات الموقع العامة"
-    delete: false # تعطيل الحذف لمنع الأخطاء البرمجية
-    editor:
-      preview: false
+  - name: "settings"
+    label: "إعدادات الموقع"
     files:
       - file: "content/settings.json"
-        label: "الهوية والروابط"
-        name: "general"
+        label: "إعدادات عامة"
+        name: "settings"
         fields:
-          - { label: "اسم الشركة (بالعربية)", name: "company_name_ar", widget: "string", default: "أيك. بوشامة للإنتاج السمعي البصري" }
-          - { label: "اسم الشركة (بالإنجليزية)", name: "company_name_en", widget: "string", default: "AIC. BOUCHAMA PRODUCTION AUDIOVISUELLE" }
-          - { label: "شعار الموقع الحالي (Logo)", name: "site_logo", widget: "image" }
-          - { label: "رقم هاتف التواصل (واتساب)", name: "contact_phone", widget: "string", default: "213796369640" }
-          - { label: "رابط صفحة الفيسبوك", name: "facebook_url", widget: "string" }
-          - { label: "رابط حساب الإنستغرام", name: "instagram_url", widget: "string" }
-
-  # 2. قسم إدارة الخدمات (مثل تصوير الكليبات، السينما، الإعلانات الفاخرة)
-  - name: "services"
-    label: "خدمات الإنتاج السمعي البصري"
-    folder: "content/services"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - { label: "معرّف الخدمة (ID)", name: "id", widget: "number" }
-      - { label: "عنوان الخدمة (بالعربية)", name: "title_ar", widget: "string" }
-      - { label: "عنوان الخدمة (بالإنجليزية)", name: "title_en", widget: "string" }
-      - { label: "أيقونة الخدمة أو صورتها الرمزية", name: "service_image", widget: "image" }
-      - { label: "الوصف المختصر (بالعربية)", name: "desc_ar", widget: "text" }
-      - { label: "الوصف المختصر (بالإنجليزية)", name: "desc_en", widget: "text" }
-
-  # 3. قسم متجر المنتجات الحصرية (مثل قمصان المناصرين والمعدات)
-  - name: "products"
-    label: "متجر المنتجات الحصرية"
-    folder: "content/products"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - { label: "معرّف المنتج الفريد (ID)", name: "id", widget: "number" }
-      - { label: "اسم المنتج (بالعربية)", name: "title_ar", widget: "string" }
-      - { label: "اسم المنتج (بالإنجليزية)", name: "title_en", widget: "string" }
-      - { label: "صورة المنتج الاحترافية", name: "image", widget: "image" }
-      - { label: "وصف المنتج التسويقي (بالعربية)", name: "desc_ar", widget: "text" }
-      - { label: "وصف المنتج التسويقي (بالإنجليزية)", name: "desc_en", widget: "text" }
-      - { label: "السعر الحالي المكتوب (مثال: 4,500 د.ج)", name: "price", widget: "string" }
-
-  # 4. قسم معرض أعمال الإنتاج (فيديوهات 3D، الموشنات، لقطات السينما)
-  - name: "portfolio"
-    label: "معرض الأعمال والإنتاجات"
-    folder: "content/portfolio"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - { label: "عنوان العمل (بالعربية)", name: "title_ar", widget: "string" }
-      - { label: "عنوان العمل (بالإنجليزية)", name: "title_en", widget: "string" }
-      - { label: "نوع الإنتاج (سينما / إعلان / 3D)", name: "category", widget: "select", options: ["سينما وتلفزيون", "إعلانات تجارية", "موشن جرافيك و3D"] }
-      - { label: "رابط فيديو العمل (من يوتيوب أو مسار مرفوع)", name: "video_url", widget: "string" }
-      - { label: "صورة الغلاف المبدئية للفيديو", name: "thumbnail", widget: "image" }
+          - {label: "اسم الشركة", name: "company_name_ar", widget: "string"}
+          - {label: "رقم الهاتف", name: "contact_phone", widget: "string"}
