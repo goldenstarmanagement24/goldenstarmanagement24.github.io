@@ -536,6 +536,18 @@
   </style>
 </head>
 <body>
+<script>
+// كود الطوارئ لضمان إخفاء شاشة التحميل فوراً بعد مرور ثانيتين كحد أقصى مهما حدث
+setTimeout(function() {
+    var backupLoader = document.getElementById('loader');
+    if (backupLoader) {
+        backupLoader.style.opacity = '0';
+        setTimeout(function() {
+            if(backupLoader) backupLoader.remove();
+        }, 500);
+    }
+}, 1500);
+</script>
 
 <div id="loader">
   <div class="spinner"></div>
@@ -1914,60 +1926,53 @@ function toggleTheme() {
     btn.innerText = '☀️';
   }
 }
-  // التحكم في نافذة طلب المنتجات عبر الواتساب
-let currentProduct = "";
+// التحكم في نافذة طلب المنتجات عبر الواتساب
+var currentProduct = "";
 
 function openOrderModal(productName) {
     currentProduct = productName;
-    const modalNameEl = document.getElementById('modal-product-name');
-    const modalEl = document.getElementById('orderModal');
-    
-    if (modalNameEl) modalNameEl.innerText = productName;
-    if (modalEl) modalEl.style.display = 'flex';
+    var modalNameEl = document.getElementById('modal-product-name');
+    var modalEl = document.getElementById('orderModal');
+    if (modalNameEl) { modalNameEl.innerText = productName; }
+    if (modalEl) { modalEl.style.display = 'flex'; }
 }
 
 function closeOrderModal() {
-    const modalEl = document.getElementById('orderModal');
-    if (modalEl) modalEl.style.display = 'none';
+    var modalEl = document.getElementById('orderModal');
+    if (modalEl) { modalEl.style.display = 'none'; }
 }
 
 function sendToWhatsApp(event) {
-    if(event) event.preventDefault();
+    if(event) { event.preventDefault(); }
 
-    const myPhoneNumber = "213796369640"; 
+    var myPhoneNumber = "213796369640"; 
+    var nameEl = document.getElementById('client-name');
+    var phoneEl = document.getElementById('client-phone');
+    var addressEl = document.getElementById('client-address');
+    var formEl = document.getElementById('whatsapp-form');
 
-    const nameEl = document.getElementById('client-name');
-    const phoneEl = document.getElementById('client-phone');
-    const addressEl = document.getElementById('client-address');
-    const formEl = document.getElementById('whatsapp-form');
+    if (!nameEl || !phoneEl || !addressEl) { return; }
 
-    if (!nameEl || !phoneEl || !addressEl) return;
+    var name = nameEl.value;
+    var phone = phoneEl.value;
+    var address = addressEl.value;
 
-    const name = nameEl.value;
-    const phone = phoneEl.value;
-    const address = addressEl.value;
+    var message = "مرحباً، أود تقديم طلب شراء:%0A%0A" +
+                  "*المنتج:* " + currentProduct + "%0A" +
+                  "*اسم الزبون:* " + name + "%0A" +
+                  "*رقم الهاتف:* " + phone + "%0A" +
+                  "*العنوان:* " + address;
 
-    // تم إصلاح صياغة الرسالة هنا لتكون متصلة وبدون أخطاء برمجية
-    const message = "مرحباً، أود تقديم طلب شراء:%0A%0A" +
-                    "*المنتج:* " + currentProduct + "%0A" +
-                    "*اسم الزبون:* " + name + "%0A" +
-                    "*رقم الهاتف:* " + phone + "%0A" +
-                    "*العنوان:* " + address;
-
-    const whatsappUrl = "https://wa.me/" + myPhoneNumber + "?text=" + message;
+    var whatsappUrl = "https://wa.me/" + myPhoneNumber + "?text=" + message;
     window.open(whatsappUrl, '_blank');
 
     closeOrderModal();
-    if (formEl) formEl.reset();
+    if (formEl) { formEl.reset(); }
 }
 
-// مستمع حدث لإغلاق النافذة عند الضغط خارجها
+// مستمع حدث إغلاق النافذة عند الضغط خارجها
 window.addEventListener('click', function(event) {
-    const modal = document.getElementById('orderModal');
+    var modal = document.getElementById('orderModal');
     if (modal && event.target == modal) {
         modal.style.display = 'none';
     }
-});
-</script>
-</body>
-</html>
