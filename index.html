@@ -1919,42 +1919,55 @@ let currentProduct = "";
 
 function openOrderModal(productName) {
     currentProduct = productName;
-    document.getElementById('modal-product-name').innerText = productName;
-    document.getElementById('orderModal').style.display = 'flex';
+    const modalNameEl = document.getElementById('modal-product-name');
+    const modalEl = document.getElementById('orderModal');
+    
+    if (modalNameEl) modalNameEl.innerText = productName;
+    if (modalEl) modalEl.style.display = 'flex';
 }
 
 function closeOrderModal() {
-    document.getElementById('orderModal').style.display = 'none';
+    const modalEl = document.getElementById('orderModal');
+    if (modalEl) modalEl.style.display = 'none';
 }
 
 function sendToWhatsApp(event) {
-    event.preventDefault();
+    if(event) event.preventDefault();
 
     const myPhoneNumber = "213796369640"; 
 
-    const name = document.getElementById('client-name').value;
-    const phone = document.getElementById('client-phone').value;
-    const address = document.getElementById('client-address').value;
+    const nameEl = document.getElementById('client-name');
+    const phoneEl = document.getElementById('client-phone');
+    const addressEl = document.getElementById('client-address');
+    const formEl = document.getElementById('whatsapp-form');
 
-    const message = `مرحباً، أود تقديم طلب شراء:%0A%0A` +
-                    `*المنتج:* ${currentProduct}%0A` +
-                    `*اسم الزبون:* ${name}%0A` +
-                    `*رقم الهاتف:* ${phone}%0A` +
-                    `*العنوان:* ${address}`;
+    if (!nameEl || !phoneEl || !addressEl) return;
 
-    const whatsappUrl = `https://wa.me/${myPhoneNumber}?text=${message}`;
+    const name = nameEl.value;
+    const phone = phoneEl.value;
+    const address = addressEl.value;
+
+    // تم إصلاح صياغة الرسالة هنا لتكون متصلة وبدون أخطاء برمجية
+    const message = "مرحباً، أود تقديم طلب شراء:%0A%0A" +
+                    "*المنتج:* " + currentProduct + "%0A" +
+                    "*اسم الزبون:* " + name + "%0A" +
+                    "*رقم الهاتف:* " + phone + "%0A" +
+                    "*العنوان:* " + address;
+
+    const whatsappUrl = "https://wa.me/" + myPhoneNumber + "?text=" + message;
     window.open(whatsappUrl, '_blank');
 
     closeOrderModal();
-    document.getElementById('whatsapp-form').reset();
+    if (formEl) formEl.reset();
 }
 
-// مستمع حدث إضافي يضمن إغلاق نافذة المنتجات عند الضغط خارجها دون تعارض
+// مستمع حدث لإغلاق النافذة عند الضغط خارجها
 window.addEventListener('click', function(event) {
     const modal = document.getElementById('orderModal');
-    if (event.target == modal) {
+    if (modal && event.target == modal) {
         modal.style.display = 'none';
     }
+});
 </script>
 </body>
 </html>
