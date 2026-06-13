@@ -1,17 +1,17 @@
 backend:
   name: git-gateway
-  branch: main
+  branch: main # تأكد أن هذا هو اسم الفرع الرئيسي لديك
 
-media_folder: "images/uploads"
-public_folder: "/images/uploads"
+media_folder: "images" # المجلد الذي تحفظ فيه صورك
+public_folder: "/images"
 
 collections:
-  - name: "settings"
-    label: "إعدادات الموقع"
+  - name: "pages"
+    label: "Pages"
     files:
-      - file: "content/settings.json"
-        label: "إعدادات عامة"
-        name: "settings"
+      - file: "index.html" # ملف الصفحة الرئيسية
+        label: "Home Page"
+        name: "index"
         fields:
-          - {label: "اسم الشركة", name: "company_name_ar", widget: "string"}
-          - {label: "رقم الهاتف", name: "contact_phone", widget: "string"}
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Main Text", name: "body", widget: "markdown"}
